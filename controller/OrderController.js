@@ -2,8 +2,8 @@ const Order = require('../model/Order');
 
 async function createOrder(req,res) {
     try{
-        const {order_date,delivery_address,city} = req.body;
-        const newOrder = await Order.create({order_date,delivery_address,city});
+        const {order_date,delivery_address,city,customer_id} = req.body;
+        const newOrder = await Order.create({order_date,delivery_address,city,customer_id});
         console.log(newOrder);
         res.status(201).json({
             msg: "new order has been created",
@@ -42,4 +42,20 @@ async function createOrder(req,res) {
         }
     }
 
-module.exports = {createOrder,deleteOrder};
+    async function getallOrders(req,res){
+        try{
+            const orders = await Order.findAll();
+            res.status(200).json({
+                data: orders
+            })
+        }
+        catch(err)
+        {
+            console.log("Error can not fetch orders",err);
+            res.status(500).json({
+                msg: "Internal server error"
+            })
+        }
+    }
+
+module.exports = {createOrder,deleteOrder,getallOrders};
