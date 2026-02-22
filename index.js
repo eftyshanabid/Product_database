@@ -11,7 +11,7 @@ const _port = process.env.PORT;
 
 app.use('/product',ProductRoute);
 app.use('/customer',CustomerRoute)
-app.use('/create',OrderRoute);
+app.use('/order',OrderRoute);
 
 app.listen(_port,()=>{
     console.log(`app is running on ${_port}`)

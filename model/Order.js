@@ -8,6 +8,7 @@ const Order = DB.define('Order',{
     },
     customer_id:{
         type: DataTypes.INTEGER,
+        allowNull: false,
         references:{
             model: "Customers",
             key: "id"
@@ -30,3 +31,5 @@ Order.sync()
 .catch((err)=>{
     console.log('Error creating Order table',err)
 })
+
+module.exports = Order;

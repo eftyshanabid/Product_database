@@ -4,6 +4,7 @@ async function createOrder(req,res) {
     try{
         const {order_date,delivery_address,city} = req.body;
         const newOrder = await Order.create({order_date,delivery_address,city});
+        console.log(newOrder);
         res.status(201).json({
             msg: "new order has been created",
             data: newOrder
@@ -11,8 +12,34 @@ async function createOrder(req,res) {
     }
     catch(err)
     {
-        console.log("Internal server error, can not create order",err)
+        console.log("Internal server error, can not create order",err);
+        res.status(500).json({
+            msg: "Internal server error. Can not create new Order"
+        })
     }
 }
 
-module.exports = {createOrder};
+    async function deleteOrder(req,res) {
+        try{
+            const {id} = req.params;
+            const order = await Order.findByPk(id);
+            if(!id){
+                res.status(404).json({
+                    msg: "Order did not found"
+                })
+            }
+            await order.destroy();
+            res.status(200).json({
+                msg: "order has been deleted"
+            })
+        }
+        catch(err)
+        {
+            console.log("error!, can not delete",err);
+            res.status(500).json({
+                msg: "Internal server error."
+            })
+        }
+    }
+
+module.exports = {createOrder,deleteOrder};
