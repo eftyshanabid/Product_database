@@ -23,7 +23,7 @@ async function createOrder(req,res) {
         try{
             const {id} = req.params;
             const order = await Order.findByPk(id);
-            if(!id){
+            if(!order){
                 res.status(404).json({
                     msg: "Order did not found"
                 })
@@ -58,4 +58,26 @@ async function createOrder(req,res) {
         }
     }
 
-module.exports = {createOrder,deleteOrder,getallOrders};
+    async function getOrderbyId(req,res) {
+       try{
+        const {id} = req.params
+        const order = await Order.findByPk(id);
+        if(!order){
+            res.status(404).json({
+                msg: "Did not found order"
+            })
+        }
+        res.status(200).json({
+           data: order 
+        })
+       } 
+       catch(err)
+       {
+        console.log("Internal server error",err);
+        res.status(500).json({
+            msg: "Internal server error."
+        })
+       }
+    }
+
+module.exports = {createOrder,deleteOrder,getallOrders,getOrderbyId};

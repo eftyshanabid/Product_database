@@ -17,4 +17,20 @@ async function createCustomer(req,res) {
    }
 }
 
-module.exports = {createCustomer}
+async function getAllCustomer(req,res) {
+    try{
+        const customers = await Customer.findAll();
+        res.status(200).json({
+            data: customers
+        })
+    }
+    catch(err)
+    {
+        console.log("Internal server error",err);
+        res.status(500).json({
+            msg: "Inernal server error"
+        })
+    }
+}
+
+module.exports = {createCustomer,getAllCustomer}
