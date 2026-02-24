@@ -2,13 +2,12 @@ const Order = require('../model/Order');
 
 async function createOrder(req,res) {
     try{
-        const {order_date,delivery_address,city,customer_id} = req.body;
-        const newOrder = await Order.create({order_date,delivery_address,city,customer_id});
-        console.log(newOrder);
-        res.status(201).json({
-            msg: "new order has been created",
-            data: newOrder
-        })
+        const order_date = req.body.order_date;
+        const delivery_address = req.body.delivery_address;
+        const customer_id = req.body.customer_id;
+        const status = req.body.status;
+        const order_items = req.body.order_items;
+
     }
     catch(err)
     {

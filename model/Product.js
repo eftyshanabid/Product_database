@@ -15,10 +15,15 @@ const Product = DB.define('Product',{
     price:{
         type: DataTypes.DECIMAL(10,2),
         allowNull: false
+    },
+    stock:
+    {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 })
 
-Product.sync()
+Product.sync({force:true})
 .then(()=>{
     console.log('Product table created successfully')
 })

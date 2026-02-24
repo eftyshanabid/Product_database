@@ -18,13 +18,18 @@ const Order = DB.define('Order',{
         type: DataTypes.STRING,
         allowNull: false
     },
-    city:{
-        type: DataTypes.STRING,
+    status:
+    {
+        type: DataTypes.ENUM('confirmed','shipped','delivered','cancelled'),
         allowNull: false
+    },
+    quantity:{
+        type: DataTypes.INTEGER,
+        allowNull:false
     }
 })
 
-Order.sync()
+Order.sync({force:true})
 .then(()=>{
     console.log("Order table created successfully")
 })
